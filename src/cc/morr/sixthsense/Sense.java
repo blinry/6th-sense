@@ -13,4 +13,8 @@ public class Sense {
         representation.connect(sensor);
         representation.start();
     }
+
+    public Representation getRepresentation() {
+        return representation;
+    }
 }

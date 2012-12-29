@@ -2,6 +2,7 @@ package cc.morr.sixthsense;
 
 public abstract class Representation {
     Sensor sensor;
+    Stimulus lastStimulus;
 
     public void connect(Sensor sensor) {
         this.sensor = sensor;
@@ -28,6 +29,15 @@ public abstract class Representation {
         }).start();
     }
 
-    abstract public void reactTo(Stimulus s);
+    public void reactTo(Stimulus s) {
+        lastStimulus = s;
+        onStimulus(s);
+    }
+
+    public Stimulus getLastStimulus() {
+        return lastStimulus;
+    }
+
+    abstract public void onStimulus(Stimulus s);
     abstract public long millisToSleep();
 }

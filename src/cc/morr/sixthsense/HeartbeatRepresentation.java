@@ -6,15 +6,13 @@ import android.content.Context;
 public class HeartbeatRepresentation extends Representation {
     Vibrator vibrator;
     Context context;
-    Stimulus lastStimulus;
 
     public HeartbeatRepresentation(Context context) {
         this.context = context;
         vibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
     }
 
-    public void reactTo(Stimulus s) {
-        lastStimulus = s;
+    public void onStimulus(Stimulus s) {
         long[] pattern = new long[] {0, 200, 50, 200, millisToSleep()-450};
         vibrator.vibrate(pattern, -1);
     }
