@@ -14,7 +14,13 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
 
-        s = new Sense(new MinuteSensor(), new HeartbeatRepresentation(this));
+        //s = new Sense(new MinuteSensor(this), new SinewaveRepresentation(this));
+        s = new Sense(
+                new WifiCountSensor(this),
+                //new SinewaveRepresentation(this)
+                new HeartbeatRepresentation(this)
+                );
+        //s = new Sense(new MinuteSensor(this), new HeartbeatRepresentation(this));
         s.start();
 
         handler = new Handler();

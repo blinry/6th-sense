@@ -12,7 +12,7 @@ public abstract class Representation {
         new Thread(new Runnable() {
             public void run() {
                 while(true) {
-                    reactTo(sensor.getStimulus());
+                    readStimulus(sensor.getStimulus());
 
                     long endTime = System.currentTimeMillis() + millisToSleep();
                     while (System.currentTimeMillis() < endTime) {
@@ -29,7 +29,7 @@ public abstract class Representation {
         }).start();
     }
 
-    public void reactTo(Stimulus s) {
+    public void readStimulus(Stimulus s) {
         lastStimulus = s;
         onStimulus(s);
     }
