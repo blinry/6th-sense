@@ -17,8 +17,8 @@ public class MainActivity extends Activity {
         //s = new Sense(new MinuteSensor(this), new SinewaveRepresentation(this));
         s = new Sense(
                 new WifiCountSensor(this),
-                new SinewaveRepresentation(this)
-                //new HeartbeatRepresentation(this)
+                //new SinewaveRepresentation(this)
+                new HeartbeatRepresentation(this)
                 );
         //s = new Sense(new MinuteSensor(this), new HeartbeatRepresentation(this));
         s.start();

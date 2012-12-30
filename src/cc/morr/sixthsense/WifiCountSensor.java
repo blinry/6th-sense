@@ -18,7 +18,7 @@ public class WifiCountSensor extends Sensor {
         wifiManager.startScan();
 
         Vector<Float> tuple = new Vector<Float>();
-        tuple.add((float)confs.size());
+        tuple.add((float)(confs.size()/10.0)); // estimate of wifi count around you
 
         Stimulus s = new Stimulus();
         s.add(tuple);

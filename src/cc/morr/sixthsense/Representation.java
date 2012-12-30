@@ -5,9 +5,10 @@ import java.util.Vector;
 public abstract class Representation {
     Stimulus lastStimulus;
     Sensor sensor;
+    long lastMillis;
 
-        public Vector<Float> min;
-        public Vector<Float> max;
+    public Vector<Float> min;
+    public Vector<Float> max;
 
     public void connect(Sensor sensor) {
         this.sensor = sensor;
@@ -36,6 +37,12 @@ public abstract class Representation {
                         }
                     }
 
+                    if (lastMillis == 0) {
+                        lastMillis = System.currentTimeMillis();
+                    }
+
+                    long passedMillis = System.currentTimeMillis()-lastMillis;
+
                     for (int i=0; i<min.size(); i++) {
                         float d = max.get(i)-min.get(i);
 
@@ -45,22 +52,21 @@ public abstract class Representation {
                                     (max.get(i)-min.get(i)));
                         }
 
-                        max.set(i, max.get(i)-0.1f*d);
-                        min.set(i, min.get(i)+0.1f*d);
+                        float shrinkSpeed = passedMillis/1000f/100f;
+
+                        max.set(i, max.get(i)-shrinkSpeed*d);
+                        min.set(i, min.get(i)+shrinkSpeed*d);
                     }
+
+                    lastMillis = System.currentTimeMillis();
 
                     readStimulus(s);
 
-                    long endTime = System.currentTimeMillis() + millisToSleep();
-                    while (System.currentTimeMillis() < endTime) {
-                        synchronized (this) {
-                            try {
-                                wait(endTime - System.currentTimeMillis());
-                            } catch (Exception e) {
-                            }
-                        }
+                    try {
+                        Thread.sleep(millisToSleep());
+                    } catch (Exception e) {
+                        // gotta catch them all :)
                     }
-
                 }
             }
         }).start();

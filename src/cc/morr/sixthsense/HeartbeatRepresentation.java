@@ -14,7 +14,7 @@ public class HeartbeatRepresentation extends Representation {
 
     public void onStimulus(Stimulus s) {
         float a = lastStimulus.getData().firstElement().firstElement();
-        long[] pattern = new long[] {0, 200, 50, 200, 200+500*(1l-(long)a)};
+        long[] pattern = new long[] {0, 200, 50, 200, 200+1000*(1l-(long)a)};
         vibrator.vibrate(pattern, -1);
     }
 
