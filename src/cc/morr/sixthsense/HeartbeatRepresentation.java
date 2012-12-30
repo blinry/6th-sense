@@ -13,12 +13,13 @@ public class HeartbeatRepresentation extends Representation {
     }
 
     public void onStimulus(Stimulus s) {
-        long[] pattern = new long[] {0, 200, 50, 200, millisToSleep()-450};
+        float a = lastStimulus.getData().firstElement().firstElement();
+        long[] pattern = new long[] {0, 200, 50, 200, 200+500*(1l-(long)a)};
         vibrator.vibrate(pattern, -1);
     }
 
     public long millisToSleep() {
         float a = lastStimulus.getData().firstElement().firstElement();
-        return 450+(60-(long)a)*10;
+        return 450+200+500*(1l-(long)a);
     }
 }

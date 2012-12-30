@@ -17,8 +17,8 @@ public class MainActivity extends Activity {
         //s = new Sense(new MinuteSensor(this), new SinewaveRepresentation(this));
         s = new Sense(
                 new WifiCountSensor(this),
-                //new SinewaveRepresentation(this)
-                new HeartbeatRepresentation(this)
+                new SinewaveRepresentation(this)
+                //new HeartbeatRepresentation(this)
                 );
         //s = new Sense(new MinuteSensor(this), new HeartbeatRepresentation(this));
         s.start();
@@ -28,15 +28,17 @@ public class MainActivity extends Activity {
             @Override
             public void run() {
                 updateDebug();
-                handler.postDelayed(this, 1000);
+                handler.postDelayed(this, 100);
             }
         };
-        handler.postDelayed(runnable, 1000);
+        handler.postDelayed(runnable, 100);
     }
 
     public void updateDebug() {
         TextView t = (TextView)findViewById(R.id.debug);
         float a = s.getRepresentation().getLastStimulus().getData().firstElement().firstElement();
-        t.setText(""+a);
+        float min = s.getRepresentation().min.firstElement();
+        float max = s.getRepresentation().max.firstElement();
+        t.setText(""+a+" ("+min+"-"+max+")");
     }
 }
